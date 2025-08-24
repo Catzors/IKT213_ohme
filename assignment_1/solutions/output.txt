@@ -1,0 +1,3 @@
+Frame Rate = 30.0
+Frame Width = 640
+Frame Height = 480
