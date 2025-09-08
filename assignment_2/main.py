@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 def padding(image, border_width): # Task 1
 
@@ -17,21 +16,6 @@ def padding(image, border_width): # Task 1
 
 def crop(image, x_0, x_1, y_0, y_1): # Task 2
 
-    # Need to think about how the cropping function works
-    """
-    Using amount of pixels from each direction to crop picture
-
-    cropped_img = image[y_start:y_end, x_start:x_end]
-    I have to think of the values in image as where the image will be included
-
-    A little bit like y_start:y_end decides from the top to the bottom, and
-    x_start:x_end decides from the left to the right.
-
-    Since the picture decides how far to one of the sides we're going, we have to
-    use the height and the width to change the y_end and x_end (or in our case, x_1
-    and y_1.
-    """
-
     # Taking the values from the matrix, and cropping away unwanted values
     height, width = image.shape[:2]
     cropped_image = image[y_0:height - y_1, x_0:width - x_1]
@@ -44,17 +28,6 @@ def crop(image, x_0, x_1, y_0, y_1): # Task 2
     cv2.destroyAllWindows()
 
 def resize(image, width, height): # Task 3
-    """
-    Understanding how to resize the picture
-
-    Seems like I just have to use the function mentioned below
-    cv2.resize(src. dsize[, dst[. fx[, fy[, interpolation]]]])
-
-    Since we know that the size should be just 200x200, there should be no problems
-    and just use cv2.resize(image, dsize[height, width])
-
-    Also chose to use INTER_AREA, for minimal distortion
-    """
 
     resized_image = cv2.resize(image, (width, height), interpolation=cv2.INTER_AREA)
 
@@ -66,18 +39,6 @@ def resize(image, width, height): # Task 3
     cv2.destroyAllWindows()
 
 def copy(image, emptyPictureArray): # Task 4
-    """
-    How should I understand this?
-    "Manual Copy - emptyPictureArray np.zeros((height, width, 3), dtype=np.uint8)"
-
-    Since we're trying to just copy the values from one picture into the other,
-    we'll most likely just copy the values from one picture into the other one through
-    matrices.
-
-    Hence, we'll probably just use several for loops for handling the y-axis and x-axis.
-    Basically going through one selected y value, and inserting all of the x values from
-    there.
-    """
 
     height, width = image.shape[:2]
 
@@ -111,14 +72,7 @@ def hsv(image): # Task 6
     cv2.destroyAllWindows()
 
 def hue_shifted(image, emptyPictureArray, hue):
-    """
-    Seems like the task wants me to change the color value by 50 for all the color values.
-    I have no concept over what the hue shifting is supposed to be there for...
-    :param image:
-    :param emptyPictureArray:
-    :param hue:
-    :return:
-    """
+
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv_image)
     h = ((h.astype(np.int16) + hue) % 180).astype(np.uint8)
@@ -132,12 +86,7 @@ def hue_shifted(image, emptyPictureArray, hue):
     cv2.destroyAllWindows()
 
 def smoothing(image): # Task 8
-    """
-    Understanding how to use the gaussian blur
-    Here we're just using the command from cv2, and it is performing the work for us.
 
-
-    """
     ksize = (15,15)
     smoothed_image = cv2.GaussianBlur(image, ksize, sigmaX=0, borderType=cv2.BORDER_DEFAULT)
     cv2.imshow('smoothed_image', smoothed_image)
