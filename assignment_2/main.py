@@ -71,17 +71,12 @@ def hsv(image): # Task 6
     cv2.waitKey()
     cv2.destroyAllWindows()
 
-def hue_shifted(image, emptyPictureArray, hue):
-
-    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    h, s, v = cv2.split(hsv_image)
-    h = ((h.astype(np.int16) + hue) % 180).astype(np.uint8)
-    merged = cv2.merge([h, s, v])
-
-    cv2.imshow('hue_shifting', merged)
-
+def hue_shifted(image, emptyPictureArray, hue): # Task 7
+    # Work directly with RGB/BGR values, not HSV
+    # Add hue value to all color channels and handle overflow with modulo
+    shifted_image = ((image.astype(np.int16) + hue) % 256).astype(np.uint8)
+    cv2.imshow('hue_shifting', shifted_image)
     print("hue_shifting")
-
     cv2.waitKey()
     cv2.destroyAllWindows()
 
